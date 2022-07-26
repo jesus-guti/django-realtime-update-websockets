@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+    --color-main: #71c6dd;
+    --color-main-light: #e1f6fb;
+    --color-dark: #3f4156;
+    --color-dark-medium: #51546e;
+    --color-dark-light: #696d97;
+    --color-light: #e5e5e5;
+    --color-gray: #8b8b8b;
+    --color-light-gray: #b2bdbd;
+    --color-bg: #2d2d39;
+    --color-success: #5dd693;
+    --color-error: #fc4b0b;
+}
+
+* {
+    font-family: "DM-sans", sans-serif;
+}
+
+.h-main {
+    min-height: calc(100vh - 80px);
+}
+
+.basic-btn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-inline: 0.85rem;
+    border-radius: 0.375rem;
+    font-size: 0.925rem;
+    height: 3rem;
+    width: fit-content;
+}
+
+.form-input {
+    width: 100%;
+    padding: .55rem .4rem;
+    border: 1px solid var(--color-dark-light);
+    background-color: transparent;
+    border-radius: 4px;
+    color: var(--color-main-light);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.form-input:focus {
+    border-color: #71c6dd;
+    outline: none;
+}
