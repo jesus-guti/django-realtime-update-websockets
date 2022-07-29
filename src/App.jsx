@@ -1,7 +1,13 @@
+import Test from './components/Test'
+
 function App() { 
+
   
     return ( 
-      <div className="text-3xl">Hola mundo</div>
+      <div>
+        <h1>Hola</h1>
+        <Test />
+      </div>
     )
 }
 
