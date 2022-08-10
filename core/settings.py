@@ -56,7 +56,6 @@ THIRD_PARTY_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
-ASGI_APPLICATION = 'core.asgi.application'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -91,6 +90,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+ASGI_APPLICATION = 'core.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
