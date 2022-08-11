@@ -1,9 +1,7 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.text import slugify
 
-class Notifications(models.Model):
+class Notification(models.Model):
     text = models.CharField(max_length=200)
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(Notifications, self).save(*args, **kwargs)

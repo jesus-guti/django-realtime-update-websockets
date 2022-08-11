@@ -1,19 +1,56 @@
 import json
-from channels.generic.websocket import WebsocketConsumer
-
-from .models import Notifications
-from django.forms.models import model_to_dict
 from time import sleep
+from channels.generic.websocket import WebsocketConsumer
+from .models import Notification
+from asgiref.sync import async_to_sync
 
 
 
-class NotificationsConsumer(WebsocketConsumer):
+class NotificationConsumer(WebsocketConsumer):
+    
     def connect(self):
-        print(self.scope)
+        self.group_name = 'previewer'
+
+        async_to_sync(self.channel_layer.group_add)(
+            self.group_name,
+            self.channel_name
+        )
+
         self.accept()
-        while True:
-            self.send(json.dumps({
-                "type":"send_message",
-                "text": model_to_dict(Notifications.objects.last())
-            })) 
-            sleep(1)
+        self.send_last_notification()
+
+    def disconnect(self, close_code):
+
+        self.channel_layer.group_discard(
+            self.group_name,
+            self.channel_name
+        )
+
+    def send_last_notification(self):
+
+            last_notification = Notification.objects.last()
+
+            message = {
+                'notification_id': last_notification.id,
+                'text': last_notification.text,
+            }
+
+            self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        'type': 'send_message',
+                        'text': message
+                    }
+                )
+            #Mandar la primera vez que se abre la conexion
+            self.send(text_data=json.dumps(
+                message
+            ))
+
+    def send_message(self, event):
+            message = event['text']
+
+            # Send message to WebSocket
+            self.send(text_data=json.dumps(
+                message
+            ))

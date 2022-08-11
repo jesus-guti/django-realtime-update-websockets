@@ -1,11 +1,9 @@
 import json
-
 import channels.layers
 from asgiref.sync import async_to_sync
-
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import Notifications
+from .models import Notification
 
 
 def send_message(event):
@@ -19,19 +17,20 @@ def send_message(event):
         message
     ))
 
-@receiver(post_save, sender=Notifications, dispatch_uid='update_notifications_status_listeners')
-def update_notifications_status_listeners(sender, instance, **kwargs):
+@receiver(post_save, sender=Notification)
+def update_notification_status_listeners(sender, instance, **kwargs):
+    print("Señales funcionan", instance.text , flush=True)
 
-    group_name = 'notifications-previewer'
+    group_name = 'previewer'
 
     message = {
-        'notifications_id': instance.id,
-        'notifications_text': instance.text
+        'notification_id': instance.id,
+        'text': instance.text
     }
-
+    
     channel_layer = channels.layers.get_channel_layer()
 
-    async_to_sync(channel_layer.send)(
+    async_to_sync(channel_layer.group_send)(
         group_name,
         {
             'type': 'send_message',
