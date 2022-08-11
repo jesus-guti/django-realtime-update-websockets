@@ -44,12 +44,14 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS = [
-    "api.apps.ApiConfig"
+    "api.apps.ApiConfig",
+    "previewer.apps.PreviewerConfig",
 ]
 
 THIRD_PARTY_APPS = [
     "rest_framework",
     "corsheaders",
+    'channels'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
@@ -87,6 +89,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'core.wsgi.application'
+
+ASGI_APPLICATION = 'core.asgi.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 
 # Database
