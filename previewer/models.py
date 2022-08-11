@@ -7,8 +7,3 @@ class Notifications(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Notifications, self).save(*args, **kwargs)
-
-
-def notification_post_save(*args, **kwargs):
-    print("post_save")
-    print(args, kwargs)
