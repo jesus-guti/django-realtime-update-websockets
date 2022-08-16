@@ -44,12 +44,10 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS = [
-    "api.apps.ApiConfig",
     "previewer.apps.PreviewerConfig",
 ]
 
 THIRD_PARTY_APPS = [
-    "rest_framework",
     "corsheaders",
     'channels'
 ]
